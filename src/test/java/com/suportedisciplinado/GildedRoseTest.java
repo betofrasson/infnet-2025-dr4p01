@@ -76,4 +76,25 @@ public class GildedRoseTest {
 
         assertEquals(50, items[0].quality);
     }
+
+    @Test
+    public void testConjuredItemDegradesTwiceAsFast() {
+        Item[] items = new Item[] { new Item("Conjured", 3, 6) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(4, items[0].quality);
+        assertEquals(2, items[0].sellIn);
+    }
+
+    @Test
+    public void testConjuredItemNeverGoesNegative() {
+        Item[] items = new Item[] { new Item("Conjured", 0, 3) };
+        GildedRose app = new GildedRose(items);
+
+        app.updateQuality();
+
+        assertEquals(0, items[0].quality);
+    }
 }
